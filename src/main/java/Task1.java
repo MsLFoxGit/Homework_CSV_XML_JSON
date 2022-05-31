@@ -14,8 +14,7 @@ import java.util.List;
 
 public class Task1 {
     public static void startTask() {
-//         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
-        String[] columnMapping = new String[]{"id", "firstName", "lastName", "country", "age"};
+        String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
         String fileName = "data.csv";
         List<Employee> list = parseCSV(columnMapping, fileName);
         String json = listToJson(list);
@@ -23,6 +22,16 @@ public class Task1 {
     }
 
     protected static void writeString(String json , String fileName) {
+        /**
+         * Check filename validity
+          */
+        String jsonFileNameExtension = fileName.substring(fileName.length()-5,fileName.length());
+        if ( !jsonFileNameExtension.equals(".json") ||
+                jsonFileNameExtension.length() >= fileName.length()||
+                fileName.trim().contains(" ")) {
+            throw new IllegalStateException("Invalid File name.");
+        }
+
         try (FileWriter file = new FileWriter(fileName)) {
             file.write(json);
             file.flush();

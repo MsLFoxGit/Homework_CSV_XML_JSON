@@ -1,5 +1,4 @@
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
@@ -28,9 +27,7 @@ public class Task3 {
         StringBuilder jsonBiulder = new StringBuilder();
         try (BufferedReader input = new BufferedReader(new FileReader(filename))) {
             List<String> str = input.lines().collect(Collectors.toList());
-            for (String item : str) {
-                jsonBiulder.append(item);
-            }
+            str.forEach(s -> jsonBiulder.append(s));
         } catch (IOException e) {
             e.getMessage();
         }
